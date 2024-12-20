@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Delius&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles/style.css">
+    <title>Notes details</title>
+</head>
+
+<body>
+    <section id="first-section" class="section">
+        <h1>GIUSEPPE'S BOOKS</h1>
+        <img src="https://covers.openlibrary.org/b/isbn/<%=book.isbn%>-M.jpg" alt="">
+        <h2><%= book.title %></h2>
+        <small class="block-element">ISBN: book.isbn</small>
+        <small class="block-element">Date read: <%=book.date_of_read.getUTCFullYear()%>-<%= book.date_of_read.getUTCMonth()+1%>-<%=book.date_of_read.getUTCDate()%></small>
+        <small class="block-element">How strongly I recommend it: <%= book.rate %></small>
+        <small class="block-element">(<a href="/">See my list of 360+ BOOKS</a>, for more.)</small>
+        <p>Go to the <a href="">Amazon page</a> for details and reviews.</p>
+        <p><%= book.abstract %></p>
+    </section>
+
+    <section id="books-list" class="section clearfix">
+        <h3>My Notes</h3>
+            <% let paragraph = ""; %>
+            <% for (const char of book.notes) { %>
+                <%  if(char !== "\n") { %>
+                    <% paragraph += char %>
+                <%  } else { %>
+                    <p><%= paragraph %></p>
+                    <% paragraph = ""; %>
+                <%  } %>
+            <% } %>
+            <p><%= paragraph %></p>
+    </section>
+
+    <section id="last-section" class="section">
+        <footer>
+            &copy; 2024 Your Company Name. All Rights Reserved.
+        </footer>
+    </section>
+
+</body>
+
+</html>

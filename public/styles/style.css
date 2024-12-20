@@ -1,0 +1,83 @@
+
+body {
+    text-align: justify;
+}
+
+.section {
+    width: 60%;
+    margin: auto;
+}
+
+#first-section {
+    margin-bottom: 2.5rem;
+    
+}
+
+#last-section {
+    width: 100%;
+    margin-top: 2.5rem;
+    background-color: #495057;
+}
+
+#books-list {
+    margin-top: 2.5rem;
+    margin-bottom: 2.5rem;
+    
+}
+
+.book-container {
+    width: 70%;
+    margin: 3rem auto;
+    background-color: #e9ecef;
+    padding: 2rem;
+}
+
+
+hr {
+    width: 75%;
+    border: dotted 0.2rem;
+    border-bottom: none;
+}
+
+h1, h2, h3 {
+font-family: "Delius", cursive;
+  font-weight: 700;
+  font-style: normal;
+}
+
+#sort-selection {
+    text-align: right;
+    margin-top: 2.5rem;
+}
+
+#sort-selection > h3 {
+    font-family:'Courier New', Courier, monospace;
+}
+
+p {
+    line-height: 1.6rem;
+}
+
+img {
+    float: left;
+    margin-right: 1rem;
+    margin-bottom: 1rem;
+}
+
+.block-element {
+    display: block;
+    line-height: 1.5rem;
+    color: grey;
+}
+
+.clearfix {
+    clear: both;
+}
+
+footer {
+    text-align: right;
+    
+    color: white;
+    padding: 2rem;
+}
+

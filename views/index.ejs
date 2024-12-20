@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Delius&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles/style.css">
+    <title>Giuseppe's Books</title>
+</head>
+
+<body>
+
+    <section id="first-section" class="section">
+        
+        <h1>GIUSEPPE'S BOOKS</h1>
+        <h2>Books I've read...</h2>
+        <p>Tiny summary but detailed notes for each. Use the ISBN number to find it from your local library or anywhere
+            else. This page will constantly update as I read more, so bookmark it if you want to check back in a few
+            months.</p>
+        <p>And please read this <strong>FAQ page</strong> about these notes, if you have any questions. You can also
+            email me. </p>
+
+        <div id="sort-selection">
+            <h3>Sort books by</h3>
+            <form id="selectionForm">
+                <label>
+                    <input type="radio" name="sortOption" value="title" checked onchange="handleSelection(this.value)">
+                    Title
+                </label>
+                <label>
+                    <input type="radio" name="sortOption" value="newest" onchange="handleSelection(this.value)">
+                    Newest
+                </label>
+                <label>
+                    <input type="radio" name="sortOption" value="best" onchange="handleSelection(this.value)">
+                    Best
+                </label>
+            </form>
+        </div>
+    
+    </section>
+
+    <hr />
+
+    <section id="books-list" class="section">
+        
+    <% for (const note of notes) { %>
+        <div class="book-container">
+            <img src="https://covers.openlibrary.org/b/isbn/<%=note.isbn%>-S.jpg" alt="">
+            <h3><%=note.title%></h3>
+            <small>Date read: <%=note.date_of_read.getUTCFullYear()%>-<%= note.date_of_read.getUTCMonth()+1%>-<%=note.date_of_read.getUTCDate()%>. How strongly I recommend it: <%=note.rate%></small>
+            <p><%=note.abstract%></p>
+            <p><a href="/<%= note.isbn%>">Read my notes</a>, or go to the Amazon page for details and reviews.</p>
+        </div>
+    <% } %>
+        
+    </section>
+
+    <hr class="clearfix" />
+
+    <section id="last-section" class="section">
+        <footer>
+            &copy; 2024 Your Company Name. All Rights Reserved.
+        </footer>
+    </section>
+</body>
+<script>
+    
+    function handleSelection(sortMethod) {
+        const section = document.querySelector('#books-list');
+        const bookContainers = Array.from(section.querySelectorAll('.book-container'));
+        let sortedContainers = [];
+        
+        switch (sortMethod) {
+            
+            case "title":
+                
+                sortedContainers = bookContainers.sort((a, b) => {
+                    const aTitle = a.querySelector('h3').textContent.trim();
+                    const bTitle = b.querySelector('h3').textContent.trim();
+                    return aTitle.localeCompare(bTitle);
+                });
+                break;
+            
+                case "newest": 
+                sortedContainers = bookContainers.sort((a, b) => {
+                    const aDate = new Date(a.querySelector('small').textContent.match(/Date read: (\d{4}-\d{1,2}-\d{1,2})/)[1]);
+                    const bDate = new Date(b.querySelector('small').textContent.match(/Date read: (\d{4}-\d{1,2}-\d{1,2})/)[1]);
+                    return bDate - aDate;
+                });
+                break;
+            
+            case "best":
+                sortedContainers = bookContainers.sort((a, b) => {
+                    const aScore = parseInt(a.querySelector('small').textContent.match(/(\d+)\/10/)[1]);
+                    const bScore = parseInt(b.querySelector('small').textContent.match(/(\d+)\/10/)[1]);
+                    return bScore - aScore;
+                });
+                break;
+        }
+        
+        section.innerHTML = '';
+        sortedContainers.forEach(container => {
+            section.appendChild(container);
+        });
+        
+    }
+</script>
+</html>
